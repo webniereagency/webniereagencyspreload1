@@ -49,11 +49,11 @@ export const CTASection = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Link to="/contact">
+            <a href="tel:+251962025394">
               <Button variant="heroOutline" size="xl">
                 Schedule a Call
               </Button>
-            </Link>
+            </a>
           </div>
 
           {/* Trust badges */}

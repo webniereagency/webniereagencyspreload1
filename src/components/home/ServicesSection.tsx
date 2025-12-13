@@ -9,28 +9,32 @@ const services = [
     title: "Rapid Website Rebuild",
     description: "Transform your outdated website into a modern, fast-loading masterpiece. We preserve your brand while upgrading everything else.",
     features: ["72-hour turnaround", "Mobile-first design", "SEO optimization"],
-    price: "From $997",
+    price: "Starting at $300",
+    priceNote: "Most projects under $500",
   },
   {
     icon: Globe,
     title: "New Website Build",
     description: "Don't have a website yet? We'll create a stunning online presence that converts visitors into customers.",
     features: ["Custom design", "Content strategy", "Domain & hosting setup"],
-    price: "From $1,497",
+    price: "Starting at $250",
+    priceNote: "Flexible based on features",
   },
   {
     icon: MapPin,
     title: "Local SEO Management",
     description: "Dominate local search results. We optimize your Google Business profile and build citations that drive foot traffic.",
     features: ["Google Business setup", "Local citations", "Review management"],
-    price: "From $497/mo",
+    price: "Only $50/mo",
+    priceNote: "Cancel anytime",
   },
   {
     icon: Code2,
     title: "Premium Custom Build",
     description: "For businesses that need something unique. Full custom development with advanced features and integrations.",
     features: ["Custom functionality", "API integrations", "Ongoing support"],
-    price: "From $4,997",
+    price: "Custom Quote",
+    priceNote: "Let's discuss your vision",
   },
 ];
 
@@ -110,7 +114,12 @@ export const ServicesSection = () => {
 
                 {/* Price & CTA */}
                 <div className="flex items-center justify-between pt-6 border-t border-border">
-                  <span className="text-lg font-semibold text-primary">{service.price}</span>
+                  <div>
+                    <span className="text-lg font-semibold text-primary">{service.price}</span>
+                    {service.priceNote && (
+                      <span className="block text-xs text-muted-foreground mt-0.5">{service.priceNote}</span>
+                    )}
+                  </div>
                   <Link to="/order">
                     <Button variant="ghost" size="sm" className="group/btn">
                       Learn More

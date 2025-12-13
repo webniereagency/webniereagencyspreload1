@@ -19,7 +19,8 @@ const services = [
       "Analytics installation",
       "30-day post-launch support",
     ],
-    price: "$997 – $1,997",
+    price: "Starting at $300",
+    priceNote: "Most projects completed for $300-$500",
     turnaround: "72 hours",
     popular: true,
   },
@@ -36,7 +37,8 @@ const services = [
       "SSL certificate",
       "60-day post-launch support",
     ],
-    price: "$1,497 – $2,997",
+    price: "Starting at $250",
+    priceNote: "Price varies by features & complexity",
     turnaround: "5-7 days",
     popular: false,
   },
@@ -53,7 +55,8 @@ const services = [
       "Local keyword optimization",
       "Ongoing support & adjustments",
     ],
-    price: "$497 – $997/month",
+    price: "Only $50/month",
+    priceNote: "No contracts • Cancel anytime",
     turnaround: "Ongoing",
     popular: false,
   },
@@ -71,7 +74,8 @@ const services = [
       "Priority support",
       "Dedicated project manager",
     ],
-    price: "$4,997 – $14,997",
+    price: "Let's Talk",
+    priceNote: "Custom quote based on your vision",
     turnaround: "2-4 weeks",
     popular: false,
   },
@@ -152,8 +156,11 @@ const Services = () => {
                           <h2 className="text-2xl md:text-3xl font-serif font-bold mb-2">
                             {service.title}
                           </h2>
-                          <div className="flex items-center gap-4 text-sm">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm">
                             <span className="text-primary font-semibold">{service.price}</span>
+                            {service.priceNote && (
+                              <span className="text-xs text-muted-foreground/80">{service.priceNote}</span>
+                            )}
                             <span className="text-muted-foreground">• {service.turnaround}</span>
                           </div>
                         </div>
@@ -208,11 +215,11 @@ const Services = () => {
                 solution for your business goals and budget.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contact">
+                <a href="tel:+251962025394">
                   <Button variant="gold" size="lg">
-                    Schedule a Call
+                    Call Now: +251 962 025 394
                   </Button>
-                </Link>
+                </a>
                 <Link to="/order">
                   <Button variant="goldOutline" size="lg">
                     Start Questionnaire
