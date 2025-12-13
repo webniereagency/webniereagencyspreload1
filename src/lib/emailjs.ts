@@ -3,6 +3,7 @@ import emailjs from '@emailjs/browser';
 // EmailJS Configuration
 export const EMAILJS_SERVICE_ID = 'service_4u0e1rk';
 export const EMAILJS_TEMPLATE_ID = 'template_5ozj6tb';
+export const EMAILJS_AUTOREPLY_TEMPLATE_ID = 'template_cl75402';
 export const EMAILJS_PUBLIC_KEY = 'oNqRLB3CPqtXHgdnh';
 
 export interface ProjectFormData {
@@ -61,14 +62,39 @@ export const sendProjectEmail = async (formData: ProjectFormData): Promise<boole
       to_email: 'fromtoptotop12@gmail.com',
     };
 
+    // Send notification to agency
     const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
       templateParams,
       EMAILJS_PUBLIC_KEY
     );
+    console.log('Agency notification sent:', response);
 
-    console.log('Email sent successfully:', response);
+    // Send auto-reply to customer
+    const autoReplyParams = {
+      to_email: formData.contactEmail,
+      business_name: formData.businessName,
+      contact_name: formData.businessName,
+      selected_package: formData.packageName,
+      package_price: formData.packagePrice,
+      launch_date: formData.launchDate || 'To be determined',
+      submission_date: new Date().toLocaleString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+    };
+
+    const autoReplyResponse = await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_AUTOREPLY_TEMPLATE_ID,
+      autoReplyParams,
+      EMAILJS_PUBLIC_KEY
+    );
+    console.log('Auto-reply sent to customer:', autoReplyResponse);
+
     return true;
   } catch (error) {
     console.error('Failed to send email:', error);
