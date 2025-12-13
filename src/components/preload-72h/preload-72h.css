@@ -1,0 +1,187 @@
+/* The 72-Hour Promise - Preload System */
+
+.preload-72h {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: hsl(0 0% 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Clock Display */
+.clock-display {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: hsl(0 0% 100%);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Process Section */
+.process-section {
+  display: flex;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  width: 100%;
+  max-width: 900px;
+  padding: 0 2rem;
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  max-width: 200px;
+}
+
+.process-icon {
+  width: clamp(40px, 8vw, 64px);
+  height: clamp(40px, 8vw, 64px);
+  stroke: hsl(0 0% 60%);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.process-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: hsl(0 0% 50%);
+}
+
+/* Work Layer - Background Elements */
+.work-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wireframe-element {
+  position: absolute;
+  border: 1px solid hsl(0 0% 20%);
+  background: transparent;
+}
+
+.code-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, hsl(0 0% 25%), transparent);
+}
+
+.deployment-pulse {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid hsl(45 50% 50% / 0.3);
+}
+
+/* Result Section */
+.result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.website-mock {
+  width: clamp(280px, 50vw, 500px);
+  height: clamp(180px, 30vw, 320px);
+  background: hsl(0 0% 8%);
+  border: 1px solid hsl(0 0% 20%);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mock-header {
+  height: 32px;
+  background: hsl(0 0% 12%);
+  border-bottom: 1px solid hsl(0 0% 18%);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 6px;
+}
+
+.mock-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(0 0% 25%);
+}
+
+.mock-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mock-line {
+  height: 8px;
+  background: hsl(0 0% 15%);
+  border-radius: 4px;
+}
+
+.mock-line.short {
+  width: 40%;
+}
+
+.mock-line.medium {
+  width: 70%;
+}
+
+.mock-line.long {
+  width: 90%;
+}
+
+.result-text {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: hsl(0 0% 70%);
+  text-align: center;
+}
+
+/* Brand Section */
+.brand-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo-mark {
+  width: clamp(48px, 10vw, 72px);
+  height: clamp(48px, 10vw, 72px);
+}
+
+.logo-type {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: hsl(0 0% 100%);
+}
+
+/* Gold accent */
+.gold-accent {
+  color: hsl(45 70% 55%);
+}
+
+.gold-stroke {
+  stroke: hsl(45 70% 55%);
+}
