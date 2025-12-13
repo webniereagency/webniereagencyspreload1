@@ -163,34 +163,77 @@ const Order = () => {
     return (
       <>
         <Helmet>
-          <title>Order Summary | WebniereAgency</title>
+          <title>Application Submitted | WebniereAgency</title>
         </Helmet>
         <Layout>
           <section className="section-padding pt-32">
             <div className="container-custom max-w-3xl">
+              {/* Success Animation */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: "spring", duration: 0.6 }}
                 className="text-center mb-12"
               >
-                <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6">
-                  <Check className="w-10 h-10 text-primary" />
-                </div>
-                <h1 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-                  Order Summary
-                </h1>
-                <p className="text-muted-foreground">
-                  Review your order details below and proceed to payment.
-                </p>
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                  className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center mx-auto mb-8 shadow-lg shadow-primary/30"
+                >
+                  <Check className="w-12 h-12 text-primary-foreground" />
+                </motion.div>
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-3xl md:text-5xl font-serif font-bold mb-4"
+                >
+                  Thank You! 🎉
+                </motion.h1>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-xl text-muted-foreground mb-2"
+                >
+                  Your project application has been submitted successfully!
+                </motion.p>
               </motion.div>
 
+              {/* Email Verification Notice */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
+                transition={{ delay: 0.5 }}
+                className="p-6 rounded-2xl bg-gradient-to-r from-primary/20 to-primary/5 border border-primary/30 mb-8"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2">Check Your Email!</h3>
+                    <p className="text-muted-foreground mb-3">
+                      We've sent a confirmation email to <span className="font-semibold text-primary">{formData.contactEmail}</span>
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Please check your inbox (and spam folder) for your project confirmation and next steps.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Order Summary */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
                 className="p-8 rounded-2xl bg-card border border-border mb-8"
               >
-                <h2 className="text-xl font-semibold mb-6">Order Details</h2>
+                <h2 className="text-xl font-semibold mb-6">Your Application Summary</h2>
                 <div className="space-y-4">
                   <div className="flex justify-between py-3 border-b border-border">
                     <span className="text-muted-foreground">Business Name</span>
@@ -219,44 +262,57 @@ const Order = () => {
                 </div>
               </motion.div>
 
+              {/* What's Next */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="p-6 rounded-xl bg-primary/10 border border-primary/20 mb-8 flex items-start gap-4"
+                transition={{ delay: 0.7 }}
+                className="p-6 rounded-xl bg-secondary/50 border border-border mb-8"
               >
-                <AlertCircle className="w-5 h-5 text-primary mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-sm mb-1">What happens next?</h4>
-                  <p className="text-sm text-muted-foreground">
-                    After payment, you'll receive a confirmation email with access to your 
-                    client dashboard. Our team will begin working on your project within 24 hours.
-                  </p>
-                </div>
+                <h4 className="font-semibold mb-4">What happens next?</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-primary">1</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Our team will review your application within 24 hours</p>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-primary">2</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">You'll receive a detailed proposal with timeline and pricing</p>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-primary">3</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">After approval, we'll begin building your website!</p>
+                  </li>
+                </ul>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.8 }}
                 className="flex flex-col sm:flex-row gap-4"
               >
                 <Button
                   variant="goldOutline"
                   size="lg"
-                  onClick={() => setIsSubmitted(false)}
+                  onClick={() => window.location.href = '/'}
                   className="flex-1"
                 >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Form
+                  Back to Home
                 </Button>
                 <Button
                   variant="gold"
                   size="lg"
-                  onClick={handlePayment}
+                  onClick={() => window.location.href = '/services'}
                   className="flex-1"
                 >
-                  Proceed to Payment
+                  Explore Our Services
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </motion.div>
