@@ -22,20 +22,20 @@ type Phase =
   | "identity"       // 9.6s - 10.0s (brand reveal)
   | "handoff";       // 10.0s+ (transition out)
 
-// STRICT 10-SECOND TIMELINE
+// STRICT 15-SECOND TIMELINE
 const PHASE_TIMINGS: Record<Phase, number> = {
   void: 0,
-  timeExists: 300,
-  timeMoves: 1500,
-  process: 3500,
-  work: 5800,
-  completion: 7800,
-  result: 8800,
-  identity: 9600,
-  handoff: 10000,
+  timeExists: 400,
+  timeMoves: 2000,
+  process: 6000,      // ~4s time establishment
+  work: 10000,        // ~4s process reveal
+  completion: 13200,  // ~3.2s work phase
+  result: 14000,      // ~0.8s completion hold
+  identity: 14600,    // ~0.6s result
+  handoff: 15200,     // ~0.6s identity
 };
 
-const TOTAL_DURATION = 10600;
+const TOTAL_DURATION = 15800;
 
 // Format time as HH:MM:SS
 const formatTime = (hours: number, minutes: number, seconds: number): string => {
@@ -57,7 +57,7 @@ export const Preload72Container = ({ onComplete }: Preload72ContainerProps) => {
     }
 
     const startTime = Date.now();
-    const countdownDuration = PHASE_TIMINGS.completion - PHASE_TIMINGS.timeMoves; // 6.3 seconds
+    const countdownDuration = PHASE_TIMINGS.completion - PHASE_TIMINGS.timeMoves; // 11.2 seconds
     const totalHours = 72;
 
     const interval = setInterval(() => {
