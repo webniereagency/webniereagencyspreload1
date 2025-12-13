@@ -1,9 +1,9 @@
 import emailjs from '@emailjs/browser';
 
-// EmailJS Configuration - Replace these with your actual values
-export const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-export const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-export const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+// EmailJS Configuration
+export const EMAILJS_SERVICE_ID = 'service_4u0e1rk';
+export const EMAILJS_TEMPLATE_ID = 'template_5ozj6tb';
+export const EMAILJS_PUBLIC_KEY = 'oNqRLB3CPqtXHgdnh';
 
 export interface ProjectFormData {
   businessName: string;
