@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Facebook, Mail, Phone, MapPin, Send } from "lucide-react";
 
 const quickLinks = [
   { href: "/", label: "Home" },
@@ -23,9 +23,9 @@ const legalLinks = [
 ];
 
 const socialLinks = [
-  { href: "#", icon: Linkedin, label: "LinkedIn" },
-  { href: "#", icon: Facebook, label: "Facebook" },
-  { href: "#", icon: Youtube, label: "YouTube" },
+  { href: "https://www.instagram.com/webniere/", icon: Instagram, label: "Instagram" },
+  { href: "https://web.facebook.com/webniere", icon: Facebook, label: "Facebook" },
+  { href: "https://t.me/Revonyx1", icon: Send, label: "Telegram" },
 ];
 
 export const Footer = () => {
@@ -53,6 +53,8 @@ export const Footer = () => {
                 <a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary/80 transition-all"
                   aria-label={social.label}
                 >
@@ -122,8 +124,8 @@ export const Footer = () => {
                 <Phone size={18} className="text-primary mt-0.5" />
                 <div className="text-sm">
                   <p className="text-muted-foreground">Phone</p>
-                  <a href="tel:+1-555-123-4567" className="text-foreground hover:text-primary transition-colors">
-                    +1 (555) 123-4567
+                  <a href="tel:+251962025394" className="text-foreground hover:text-primary transition-colors">
+                    +251 962 025 394
                   </a>
                 </div>
               </li>
