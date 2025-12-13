@@ -22,20 +22,20 @@ type Phase =
   | "identity"       // 9.6s - 10.0s (brand reveal)
   | "handoff";       // 10.0s+ (transition out)
 
-// STRICT 15-SECOND TIMELINE
+// STRICT ~13.5-SECOND TIMELINE
 const PHASE_TIMINGS: Record<Phase, number> = {
   void: 0,
-  timeExists: 400,
-  timeMoves: 1500,
-  process: 4500,      // ~4.5s time establishment
-  work: 8500,         // ~4s process reveal
-  completion: 11500,  // ~3s work phase
-  result: 13000,      // ~1.5s completion hold
-  identity: 14200,    // ~1.2s result
-  handoff: 15400,     // ~1.2s identity
+  timeExists: 300,
+  timeMoves: 1000,
+  process: 3000,      // ~3s time establishment
+  work: 7000,         // ~4s process reveal
+  completion: 10000,  // ~3s work phase
+  result: 11500,      // ~1.5s completion hold
+  identity: 12700,    // ~1.2s result
+  handoff: 13900,     // ~1.2s identity
 };
 
-const TOTAL_DURATION = 16000;
+const TOTAL_DURATION = 14500;
 
 // Format time as HH:MM:SS
 const formatTime = (hours: number, minutes: number, seconds: number): string => {
