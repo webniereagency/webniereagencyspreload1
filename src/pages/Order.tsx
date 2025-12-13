@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Helmet } from "react-helmet-async";
-import { Check, ArrowRight, ArrowLeft, Upload, AlertCircle } from "lucide-react";
+import { Check, ArrowRight, ArrowLeft, Upload, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import { sendProjectEmail } from "@/lib/emailjs";
 
 const steps = [
   { id: 1, title: "Business Info" },
@@ -97,6 +98,7 @@ const Order = () => {
     privacyAccepted: false,
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
   const updateFormData = (field: keyof FormData, value: string | boolean) => {
@@ -115,7 +117,7 @@ const Order = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!formData.termsAccepted || !formData.privacyAccepted) {
       toast({
         title: "Please accept the terms",
@@ -124,7 +126,32 @@ const Order = () => {
       });
       return;
     }
-    setIsSubmitted(true);
+
+    setIsSubmitting(true);
+    
+    const selectedPkg = packages.find(p => p.id === formData.selectedPackage);
+    
+    const success = await sendProjectEmail({
+      ...formData,
+      packageName: selectedPkg?.name || 'Not selected',
+      packagePrice: selectedPkg?.price || 'N/A',
+    });
+
+    setIsSubmitting(false);
+
+    if (success) {
+      toast({
+        title: "Application Submitted!",
+        description: "We've received your project details and will contact you soon.",
+      });
+      setIsSubmitted(true);
+    } else {
+      toast({
+        title: "Submission Failed",
+        description: "There was an error sending your application. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handlePayment = () => {
@@ -568,9 +595,18 @@ const Order = () => {
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 ) : (
-                  <Button variant="gold" onClick={handleSubmit}>
-                    Submit Order
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                  <Button variant="gold" onClick={handleSubmit} disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        Submit Order
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </>
+                    )}
                   </Button>
                 )}
               </div>
