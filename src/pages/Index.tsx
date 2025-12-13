@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PreloadContainer } from "@/components/preload/PreloadContainer";
+import { Preload72Container } from "@/components/preload-72h/Preload72Container";
 import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
@@ -24,7 +24,7 @@ const Index = () => {
         <link rel="canonical" href="https://webniereagency.com" />
       </Helmet>
       
-      {showPreloader && <PreloadContainer onComplete={() => setShowPreloader(false)} />}
+      {showPreloader && <Preload72Container onComplete={() => setShowPreloader(false)} />}
       
       <Layout>
         <HeroSection />
