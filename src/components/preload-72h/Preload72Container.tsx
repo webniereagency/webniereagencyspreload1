@@ -26,16 +26,16 @@ type Phase =
 const PHASE_TIMINGS: Record<Phase, number> = {
   void: 0,
   timeExists: 400,
-  timeMoves: 2000,
-  process: 6000,      // ~4s time establishment
-  work: 10000,        // ~4s process reveal
-  completion: 13200,  // ~3.2s work phase
-  result: 14000,      // ~0.8s completion hold
-  identity: 14600,    // ~0.6s result
-  handoff: 15200,     // ~0.6s identity
+  timeMoves: 1500,
+  process: 4500,      // ~4.5s time establishment
+  work: 8500,         // ~4s process reveal
+  completion: 11500,  // ~3s work phase
+  result: 13000,      // ~1.5s completion hold
+  identity: 14200,    // ~1.2s result
+  handoff: 15400,     // ~1.2s identity
 };
 
-const TOTAL_DURATION = 15800;
+const TOTAL_DURATION = 16000;
 
 // Format time as HH:MM:SS
 const formatTime = (hours: number, minutes: number, seconds: number): string => {
