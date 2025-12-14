@@ -38,8 +38,8 @@ const packages = [
   {
     id: "rebuild",
     name: "Rapid Website Rebuild",
-    price: "$997 – $1,997",
-    description: "Transform your existing site in 72 hours",
+    price: "Starting at $250",
+    description: "Most projects completed for $300-$500 • 72 hours",
     features: [
       "72-hour turnaround",
       "Mobile-responsive design",
@@ -51,10 +51,11 @@ const packages = [
   {
     id: "newbuild",
     name: "New Website Build",
-    price: "$1,497 – $2,997",
+    price: "Starting at $250",
     description: "Complete new website from scratch",
     features: [
-      "Custom design from scratch",
+      "Custom futuristic design",
+      "Modern animations & interactions",
       "Content strategy guidance",
       "Domain & hosting setup",
       "Contact forms & integrations",
@@ -64,8 +65,8 @@ const packages = [
   {
     id: "seo",
     name: "Local SEO Management",
-    price: "$497 – $997/mo",
-    description: "Ongoing local search optimization",
+    price: "Only $50/month",
+    description: "No contracts • Cancel anytime • Ongoing",
     features: [
       "Google Business optimization",
       "Local citation building",
@@ -77,8 +78,8 @@ const packages = [
   {
     id: "custom",
     name: "Premium Custom Build",
-    price: "$4,997 – $14,997",
-    description: "Full custom development",
+    price: "Let's Talk",
+    description: "Custom quote based on your vision",
     features: [
       "Fully custom functionality",
       "API integrations",
