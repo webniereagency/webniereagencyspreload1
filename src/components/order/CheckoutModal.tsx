@@ -94,7 +94,9 @@ export const CheckoutModal = ({ isOpen, onClose, packageName, packagePrice }: Ch
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <p className="font-medium">{packageName}</p>
-                    <p className="text-sm text-muted-foreground">One-time payment</p>
+                    <p className="text-sm text-muted-foreground">
+                      {packagePrice.includes("month") ? "Monthly subscription" : "One-time payment"}
+                    </p>
                   </div>
                   <span className="text-lg font-bold text-primary">{packagePrice}</span>
                 </div>
