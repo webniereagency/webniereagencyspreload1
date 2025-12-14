@@ -3,30 +3,34 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+import aceAfter from "@/assets/portfolio/ace-after.png";
+import mrelectricAfter from "@/assets/portfolio/mrelectric-after.png";
+import solinaAfter from "@/assets/portfolio/solina-after.png";
+
 const projects = [
   {
     id: 1,
-    title: "Coastal Plumbing Co.",
+    title: "ACE Cooling, Heating, Plumbing & Electrical",
     category: "Local Service Business",
-    description: "Complete website rebuild for a family-owned plumbing company. Improved lead generation by 340%.",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
-    tags: ["Website Rebuild", "SEO", "Lead Generation"],
+    description: "Complete website built from scratch for a multi-service home company in Phoenix, AZ.",
+    image: aceAfter,
+    tags: ["New Build", "Multi-Service", "Lead Generation"],
   },
   {
     id: 2,
-    title: "Green Valley Dental",
-    category: "Healthcare",
-    description: "Modern, HIPAA-compliant website with online booking integration and patient portal.",
-    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80",
-    tags: ["New Build", "Booking System", "Healthcare"],
+    title: "Mr. Electric of Dallas",
+    category: "Local Electrician",
+    description: "Professional website replacing a social-media-only presence for local search visibility.",
+    image: mrelectricAfter,
+    tags: ["Website Build", "Local SEO", "Electrician"],
   },
   {
     id: 3,
-    title: "Urban Fitness Studio",
-    category: "Fitness & Wellness",
-    description: "Dynamic website with class scheduling, membership management, and payment processing.",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
-    tags: ["Custom Build", "E-commerce", "Scheduling"],
+    title: "Solina Coffee",
+    category: "Coffee Shop",
+    description: "Website and Google Business profile with 395+ reviews and 4.8⭐ rating in 6 months.",
+    image: solinaAfter,
+    tags: ["New Build", "Google Business", "Local Discovery"],
   },
 ];
 

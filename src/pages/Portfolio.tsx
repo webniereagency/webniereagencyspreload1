@@ -2,71 +2,165 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Helmet } from "react-helmet-async";
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import { ExternalLink, Github, ChevronLeft, ChevronRight, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+// Portfolio images
+import aceAfter from "@/assets/portfolio/ace-after.png";
+import mrelectricBefore from "@/assets/portfolio/mrelectric-before.png";
+import mrelectricAfter from "@/assets/portfolio/mrelectric-after.png";
+import solinaBefore from "@/assets/portfolio/solina-before.png";
+import solinaAfter from "@/assets/portfolio/solina-after.png";
+import blackpotionBefore from "@/assets/portfolio/blackpotion-before.png";
+import blackpotionAfter from "@/assets/portfolio/blackpotion-after.png";
 
 const projects = [
   {
     id: 1,
-    title: "Coastal Plumbing Co.",
+    title: "ACE Cooling, Heating, Plumbing and Electrical",
+    location: "Phoenix, AZ",
     category: "Local Service Business",
-    description: "Complete website rebuild for a family-owned plumbing company serving the coastal region. The old site was slow, outdated, and not mobile-friendly. We transformed it into a modern, lead-generating machine.",
-    challenge: "The existing website was built in 2012 and hadn't been updated since. It wasn't mobile-responsive, loaded slowly, and ranked poorly in local search results.",
-    solution: "We rebuilt the entire site with a mobile-first approach, implemented local SEO best practices, and added a prominent call-to-action for emergency services.",
+    description: "This business did not have a dedicated website before working with us. We designed and launched a complete, professional website from scratch, structured around clarity, trust, and fast customer conversion.",
+    challenge: "A growing multi-service home company operating without a central website, relying on fragmented contact points and offline trust.",
+    solution: "We designed and launched a complete, professional website from scratch, structured around clarity, trust, and fast customer conversion.",
     results: [
-      "340% increase in lead generation",
-      "PageSpeed score improved from 23 to 94",
-      "First page ranking for 12 local keywords",
-      "50% reduction in bounce rate",
+      "Strong digital presence established",
+      "All services unified under one brand",
+      "Immediate credibility elevation",
+      "Improved customer trust signals",
     ],
-    beforeImage: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
-    tags: ["Website Rebuild", "SEO", "Lead Generation"],
-    github: "https://github.com/webniereagency/coastal-plumbing-demo",
-    deliverables: ["5-page website", "Contact forms", "Service area pages", "Emergency CTA", "Google Analytics"],
+    beforeImage: null, // No website previously
+    afterImage: aceAfter,
+    tags: ["New Build", "Multi-Service", "Lead Generation"],
+    website: "https://acehomeaz.com/",
+    github: "https://github.com/webniereagency/acehomeaz",
+    deliverables: ["Complete website", "Service pages", "Contact integration", "Mobile responsive", "SEO optimization"],
   },
   {
     id: 2,
-    title: "Green Valley Dental",
-    category: "Healthcare",
-    description: "Modern, HIPAA-compliant website with online booking integration and patient portal. The practice needed a professional online presence that would attract new patients while serving existing ones.",
-    challenge: "The dental practice had no online booking system, forcing staff to handle all appointments by phone. They also needed a secure way for patients to access forms and records.",
-    solution: "We built a custom website with integrated online scheduling, a patient portal, and optimized landing pages for each dental service they offer.",
+    title: "Mr. Electric of Dallas",
+    location: "Dallas, TX",
+    category: "Local Electrician",
+    description: "They were relying primarily on Facebook and social media presence until 2024. We translated their real-world trust into a structured, high-performance website designed for local service discovery.",
+    challenge: "Strong local reputation, but no professional website to support credibility or capture search traffic.",
+    solution: "We translated their real-world trust into a structured, high-performance website designed for local service discovery.",
     results: [
-      "200% increase in online bookings",
-      "70% reduction in phone inquiries",
-      "First page ranking for 'dentist near me'",
-      "45 new patients in first month",
+      "Modern digital presence established",
+      "Growth beyond social platforms",
+      "Improved customer acquisition",
+      "Local search visibility gained",
     ],
-    beforeImage: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80",
-    tags: ["New Build", "Booking System", "Healthcare"],
-    github: "https://github.com/webniereagency/greenvalley-dental-demo",
-    deliverables: ["10-page website", "Online booking", "Patient portal", "Service pages", "Blog"],
+    beforeImage: mrelectricBefore,
+    afterImage: mrelectricAfter,
+    tags: ["Website Build", "Local SEO", "Electrician"],
+    website: "https://www.mrelectricdallas.com/",
+    github: "https://github.com/webniereagency/mrelectricdallas",
+    deliverables: ["Professional website", "Service pages", "Contact forms", "Local SEO", "Mobile optimization"],
   },
   {
     id: 3,
-    title: "Urban Fitness Studio",
-    category: "Fitness & Wellness",
-    description: "Dynamic website with class scheduling, membership management, and payment processing. The studio needed a complete digital transformation to compete with larger gym chains.",
-    challenge: "The fitness studio was using paper sign-up sheets and manual payment collection. They needed a modern system to manage classes, memberships, and payments online.",
-    solution: "We developed a fully integrated website with real-time class scheduling, membership tiers, and seamless payment processing through Stripe.",
+    title: "Solina Coffee",
+    location: "Addis Ababa, Ethiopia",
+    category: "Coffee Shop",
+    description: "They had no website and no Google Business presence, limiting visibility despite strong in-store quality. We built a professional website and fully registered and managed their Google Business profile.",
+    challenge: "A quality local café invisible online and missing from local search results.",
+    solution: "We built a professional website and fully registered and managed their Google Business profile.",
     results: [
-      "150% increase in class bookings",
-      "85% of payments now online",
-      "30% reduction in admin time",
-      "New membership tier generating $5k/month",
+      "Over 395+ Google reviews",
+      "4.8⭐ rating achieved",
+      "Strong local discovery",
+      "6-month transformation",
     ],
-    beforeImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
-    tags: ["Custom Build", "E-commerce", "Scheduling"],
-    github: "https://github.com/webniereagency/urban-fitness-demo",
-    deliverables: ["Custom web app", "Class scheduling", "Membership system", "Payment integration", "Mobile app"],
+    beforeImage: solinaBefore,
+    afterImage: solinaAfter,
+    tags: ["New Build", "Google Business", "Local Discovery"],
+    website: "https://solinacoffee.lovable.app/",
+    github: "https://github.com/webniereagency/solinacoffee",
+    deliverables: ["Custom website", "Google Business setup", "Review management", "Local SEO", "Bilingual content"],
+  },
+  {
+    id: 4,
+    title: "Black Potion Sedona",
+    location: "Sedona, AZ",
+    category: "Café & Crystal Shop",
+    description: "They previously had a single-page, unclear website that did not explain the crystal shop concept. We rebuilt the site into a multi-page experience with structure, education, and brand depth.",
+    challenge: "A unique hybrid café and crystal shop with no clear digital storytelling.",
+    solution: "We rebuilt the site into a multi-page experience with structure, education, and brand depth.",
+    results: [
+      "Clear concept communication",
+      "Improved visitor understanding",
+      "Enhanced brand storytelling",
+      "Multi-page experience created",
+    ],
+    beforeImage: blackpotionBefore,
+    afterImage: blackpotionAfter,
+    tags: ["Website Rebuild", "Brand Storytelling", "Multi-page"],
+    website: "https://www.blackpotionsedona.com/",
+    github: "https://github.com/webniereagency/blackpotionsedona",
+    deliverables: ["Multi-page website", "Crystal shop section", "Menu integration", "Brand storytelling", "Gallery"],
   },
 ];
 
-const BeforeAfterSlider = ({ beforeImage, afterImage }: { beforeImage: string; afterImage: string }) => {
+const BeforeAfterSlider = ({ beforeImage, afterImage }: { beforeImage: string | null; afterImage: string }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
+
+  // If no before image, just show the after image with a "No Previous Website" overlay
+  if (!beforeImage) {
+    return (
+      <div className="relative aspect-video rounded-xl overflow-hidden">
+        <img
+          src={afterImage}
+          alt="After"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        
+        {/* Before side with "No Website" message */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ width: `${sliderPosition}%` }}
+        >
+          <div className="absolute inset-0 bg-background flex items-center justify-center">
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
+                <Globe className="w-8 h-8 text-muted-foreground" />
+              </div>
+              <p className="text-lg font-semibold text-muted-foreground">No Website Previously</p>
+              <p className="text-sm text-muted-foreground/70 mt-1">Started from scratch</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Slider Handle */}
+        <div
+          className="absolute top-0 bottom-0 w-1 bg-primary cursor-ew-resize"
+          style={{ left: `${sliderPosition}%` }}
+        >
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+            <ChevronLeft className="w-4 h-4 text-primary-foreground -mr-1" />
+            <ChevronRight className="w-4 h-4 text-primary-foreground -ml-1" />
+          </div>
+        </div>
+
+        {/* Labels */}
+        <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-background/80 text-xs font-medium">
+          Before
+        </div>
+        <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary text-xs font-medium text-primary-foreground">
+          After
+        </div>
+
+        {/* Invisible slider input */}
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={sliderPosition}
+          onChange={(e) => setSliderPosition(Number(e.target.value))}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="relative aspect-video rounded-xl overflow-hidden cursor-ew-resize">
@@ -86,9 +180,7 @@ const BeforeAfterSlider = ({ beforeImage, afterImage }: { beforeImage: string; a
           src={beforeImage}
           alt="Before"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: "grayscale(100%) brightness(0.8)" }}
         />
-        <div className="absolute inset-0 bg-background/20" />
       </div>
 
       {/* Slider Handle */}
@@ -188,9 +280,10 @@ const Portfolio = () => {
                       <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-2 block">
                         {project.category}
                       </span>
-                      <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+                      <h2 className="text-3xl md:text-4xl font-serif font-bold mb-2">
                         {project.title}
                       </h2>
+                      <p className="text-sm text-muted-foreground mb-4">{project.location}</p>
                       <p className="text-muted-foreground leading-relaxed mb-6">
                         {project.description}
                       </p>
@@ -228,6 +321,16 @@ const Portfolio = () => {
                             {tag}
                           </span>
                         ))}
+                        <a
+                          href={project.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-sm text-primary-foreground hover:bg-primary/90 transition-colors"
+                        >
+                          <Globe className="w-4 h-4" />
+                          View Website
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
                         <a
                           href={project.github}
                           target="_blank"
