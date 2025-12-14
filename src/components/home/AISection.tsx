@@ -1,26 +1,26 @@
 import { motion } from "framer-motion";
-import { Brain, Zap, Shield, TrendingUp } from "lucide-react";
+import { Users, Zap, Shield, TrendingUp } from "lucide-react";
 
 const features = [
   {
-    icon: Brain,
-    title: "AI-Powered Design",
-    description: "Our AI tools analyze your industry and competitors to create designs that convert.",
+    icon: Users,
+    title: "Expert-Led Design",
+    description: "Our experienced team analyzes your industry and competitors to create designs that convert.",
   },
   {
     icon: Zap,
-    title: "Accelerated Development",
-    description: "What used to take weeks now takes days. AI handles repetitive tasks while our team focuses on strategy.",
+    title: "Streamlined Development",
+    description: "What used to take weeks now takes days. Our efficient workflows focus on strategy and results.",
   },
   {
     icon: Shield,
     title: "Quality Assurance",
-    description: "Automated testing and optimization ensure your site performs flawlessly across all devices.",
+    description: "Comprehensive testing and optimization ensure your site performs flawlessly across all devices.",
   },
   {
     icon: TrendingUp,
     title: "SEO Optimization",
-    description: "Built-in SEO best practices powered by AI analysis of top-ranking local businesses.",
+    description: "Built-in SEO best practices informed by analysis of top-ranking local businesses.",
   },
 ];
 
@@ -43,12 +43,12 @@ export const AISection = () => {
               Our Approach
             </span>
             <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">
-              AI-Accelerated
+              Expert-Driven
               <br />
               <span className="text-gradient">Workflows</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              We combine cutting-edge AI technology with human creativity and expertise. 
+              We combine cutting-edge technology with human creativity and expertise. 
               This hybrid approach allows us to deliver stunning websites at unprecedented 
               speed without sacrificing quality.
             </p>
@@ -109,7 +109,7 @@ export const AISection = () => {
               <div className="absolute inset-24 rounded-full bg-gradient-to-br from-gold to-gold-light flex items-center justify-center shadow-2xl"
                 style={{ boxShadow: "0 0 80px hsl(43 65% 52% / 0.4)" }}
               >
-                <Brain className="w-16 h-16 text-primary-foreground" />
+                <Users className="w-16 h-16 text-primary-foreground" />
               </div>
 
               {/* Floating elements */}
