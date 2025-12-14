@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoW from "@/assets/logo-w.png";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -45,9 +46,11 @@ export const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold to-gold-light flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl">W</span>
-            </div>
+            <img 
+              src={logoW} 
+              alt="Webniere Agency" 
+              className="w-10 h-10 rounded-lg object-cover"
+            />
             <span className="text-xl font-serif font-semibold text-foreground group-hover:text-primary transition-colors">
               Webniere<span className="text-primary">Agency</span>
             </span>

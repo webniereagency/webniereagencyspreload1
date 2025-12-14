@@ -7,22 +7,34 @@ import { Button } from "@/components/ui/button";
 
 const team = [
   {
-    name: "Amir Haddad",
-    role: "Head of Design",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
-    bio: "10+ years of experience crafting digital experiences for brands worldwide.",
-  },
-  {
-    name: "Sara Mekonnen",
-    role: "Lead Developer",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
-    bio: "Full-stack developer specializing in performance optimization and modern frameworks.",
-  },
-  {
-    name: "David Kim",
-    role: "SEO & Local Listings Specialist",
+    name: "Tewodros Kassahun",
+    role: "Chief Executive Officer (CEO) & Founder",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-    bio: "Helping local businesses dominate search results and drive foot traffic.",
+    bio: "Tewodros is the visionary behind Webniere Agency. With over a decade of experience in the international tech sector, he returned to Ethiopia with a mission to elevate the country's digital landscape.",
+  },
+  {
+    name: "Mekonnen Tesfaye",
+    role: "Lead Web Development Architect",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80",
+    bio: "Mekonnen is the technical backbone of the agency, specializing in scalable, secure, and high-performance web applications. He leads development standards and ensures every solution is robust and future-proof.",
+  },
+  {
+    name: "Lulit Gebrehiwot",
+    role: "Digital Marketing Strategist",
+    image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&q=80",
+    bio: "Lulit drives measurable growth through data-driven digital marketing strategies. Her expertise in SEO, content, and social platforms bridges global best practices with local market understanding.",
+  },
+  {
+    name: "Yonas Kebede",
+    role: "Senior UI/UX Designer",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80",
+    bio: "Yonas designs intuitive, elegant interfaces that balance aesthetics with usability. His work defines brand identity and ensures seamless user experiences across all projects.",
+  },
+  {
+    name: "Sara Mengistu",
+    role: "Head of Operations & Project Management",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    bio: "Sara oversees timelines, resources, and delivery excellence. Her leadership ensures projects are completed on time, within scope, and to the highest professional standards.",
   },
 ];
 
@@ -35,7 +47,7 @@ const values = [
   {
     icon: Lightbulb,
     title: "Innovation First",
-    description: "We leverage cutting-edge AI and automation to deliver faster, better results.",
+    description: "We leverage cutting-edge technology and expertise to deliver faster, better results.",
   },
   {
     icon: Users,
@@ -53,8 +65,8 @@ const About = () => {
   return (
     <>
       <Helmet>
-        <title>About Us | WebniereAgency - AI-Powered Web Development</title>
-        <meta name="description" content="Learn about WebniereAgency's mission to transform local business websites using AI-accelerated workflows and a team of dedicated specialists." />
+        <title>About Us | WebniereAgency - Professional Web Development</title>
+        <meta name="description" content="Learn about WebniereAgency's mission to transform local business websites with a team of dedicated specialists and streamlined workflows." />
       </Helmet>
 
       <Layout>
@@ -111,7 +123,7 @@ const About = () => {
                     cookie-cutter solutions that didn't drive results.
                   </p>
                   <p>
-                    So we built something better. By combining AI-powered workflows with human 
+                    So we built something better. By combining streamlined workflows with human 
                     creativity and expertise, we've created a system that delivers stunning, 
                     conversion-optimized websites in just 72 hours.
                   </p>
@@ -167,7 +179,7 @@ const About = () => {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Every local business deserves a website that works as hard as they do. 
                 We're on a mission to democratize access to professional web development, 
-                using AI-accelerated workflows to deliver enterprise-quality results 
+                using streamlined workflows to deliver enterprise-quality results 
                 at a fraction of the traditional cost and timeline.
               </p>
             </motion.div>
@@ -185,18 +197,20 @@ const About = () => {
               className="text-center mb-16"
             >
               <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block">
-                Our Team
+                Leadership
               </span>
               <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6">
-                Meet the Specialists
+                Webniere Agency: Our Leadership Team
               </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                A dedicated team of designers, developers, and marketing experts 
-                working together to deliver exceptional results.
+              <p className="text-muted-foreground max-w-3xl mx-auto">
+                Webniere Agency is a digital innovation firm founded on the principle of merging global 
+                technological standards with deep local market insight. Our leadership team, comprised 
+                of seasoned professionals with diverse expertise, is dedicated to delivering exceptional 
+                web and digital solutions that drive measurable success for our clients in Ethiopia and beyond.
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {team.map((member, index) => (
                 <motion.div
                   key={member.name}
@@ -284,7 +298,7 @@ const About = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   "72-hour delivery on most projects",
-                  "AI-accelerated workflows for faster results",
+                  "Streamlined workflows for faster results",
                   "Dedicated project manager for every client",
                   "Conversion-focused design principles",
                   "Local SEO optimization included",

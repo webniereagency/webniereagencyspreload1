@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, Mail, Phone, MapPin, Send } from "lucide-react";
+import logoW from "@/assets/logo-w.png";
 
 const quickLinks = [
   { href: "/", label: "Home" },
@@ -36,16 +37,18 @@ export const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold to-gold-light flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">W</span>
-              </div>
+              <img 
+                src={logoW} 
+                alt="Webniere Agency" 
+                className="w-10 h-10 rounded-lg object-cover"
+              />
               <span className="text-xl font-serif font-semibold">
                 Webniere<span className="text-primary">Agency</span>
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Transform your outdated website into a fast, beautiful, 
-              conversion-first online experience. AI-accelerated workflows 
+              conversion-first online experience. Built by experienced professionals 
               with delivery in just 72 hours.
             </p>
             <div className="flex gap-4">
