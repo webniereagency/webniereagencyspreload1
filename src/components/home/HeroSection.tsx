@@ -36,7 +36,7 @@ export const HeroSection = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
           >
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm text-primary font-medium">AI-Accelerated Web Development</span>
+            <span className="text-sm text-primary font-medium">Professional Web Development</span>
           </motion.div>
 
           {/* Main Headline */}
@@ -59,7 +59,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
           >
-            We transform outdated sites into fast, beautiful, AI-optimized websites.
+            We transform outdated sites into fast, beautiful, professionally-crafted websites.
             Answer a few questions, provide access, pay — and we deliver.
           </motion.p>
 
