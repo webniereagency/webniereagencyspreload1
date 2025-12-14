@@ -112,17 +112,11 @@ export const ServicesSection = () => {
                   ))}
                 </ul>
 
-                {/* Price & CTA */}
-                <div className="flex items-center justify-between pt-6 border-t border-border">
-                  <div>
-                    <span className="text-lg font-semibold text-primary">{service.price}</span>
-                    {service.priceNote && (
-                      <span className="block text-xs text-muted-foreground mt-0.5">{service.priceNote}</span>
-                    )}
-                  </div>
+                {/* CTA */}
+                <div className="flex items-center justify-end pt-6 border-t border-border">
                   <Link to="/order">
                     <Button variant="ghost" size="sm" className="group/btn">
-                      Learn More
+                      Get Started
                       <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                     </Button>
                   </Link>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Helmet } from "react-helmet-async";
-import { Check, ArrowRight, ArrowLeft, Upload, AlertCircle, Loader2 } from "lucide-react";
+import { Check, ArrowRight, ArrowLeft, AlertCircle, Loader2, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { sendProjectEmail } from "@/lib/emailjs";
+import { CheckoutModal } from "@/components/order/CheckoutModal";
 
 const steps = [
   { id: 1, title: "Business Info" },
@@ -37,26 +38,54 @@ const packages = [
   {
     id: "rebuild",
     name: "Rapid Website Rebuild",
-    price: "$997 - $1,997",
+    price: "$997 – $1,997",
     description: "Transform your existing site in 72 hours",
+    features: [
+      "72-hour turnaround",
+      "Mobile-responsive design",
+      "SEO-optimized structure",
+      "Performance optimization",
+      "30-day support included",
+    ],
   },
   {
     id: "newbuild",
     name: "New Website Build",
-    price: "$1,497 - $2,997",
+    price: "$1,497 – $2,997",
     description: "Complete new website from scratch",
+    features: [
+      "Custom design from scratch",
+      "Content strategy guidance",
+      "Domain & hosting setup",
+      "Contact forms & integrations",
+      "60-day support included",
+    ],
   },
   {
     id: "seo",
     name: "Local SEO Management",
-    price: "$497 - $997/mo",
+    price: "$497 – $997/mo",
     description: "Ongoing local search optimization",
+    features: [
+      "Google Business optimization",
+      "Local citation building",
+      "Review management",
+      "Monthly performance reports",
+      "Cancel anytime",
+    ],
   },
   {
     id: "custom",
     name: "Premium Custom Build",
-    price: "$4,997 - $14,997",
+    price: "$4,997 – $14,997",
     description: "Full custom development",
+    features: [
+      "Fully custom functionality",
+      "API integrations",
+      "E-commerce capabilities",
+      "Priority ongoing support",
+      "Dedicated project manager",
+    ],
   },
 ];
 
@@ -80,6 +109,7 @@ interface FormData {
 
 const Order = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [showCheckout, setShowCheckout] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     businessName: "",
     businessCategory: "",
@@ -117,11 +147,37 @@ const Order = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const validateForm = (): { valid: boolean; message?: string } => {
+    // Validate required fields
+    if (!formData.businessName.trim()) {
+      return { valid: false, message: "Please enter your business name." };
+    }
+    if (!formData.businessCategory) {
+      return { valid: false, message: "Please select your business category." };
+    }
+    if (!formData.contactEmail.trim()) {
+      return { valid: false, message: "Please enter your contact email." };
+    }
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.contactEmail)) {
+      return { valid: false, message: "Please enter a valid email address." };
+    }
+    if (!formData.selectedPackage) {
+      return { valid: false, message: "Please select a package." };
+    }
     if (!formData.termsAccepted || !formData.privacyAccepted) {
+      return { valid: false, message: "You must accept the Terms of Service and Privacy Policy to continue." };
+    }
+    return { valid: true };
+  };
+
+  const handleSubmit = async () => {
+    const validation = validateForm();
+    if (!validation.valid) {
       toast({
-        title: "Please accept the terms",
-        description: "You must accept the Terms of Service and Privacy Policy to continue.",
+        title: "Please complete the form",
+        description: validation.message,
         variant: "destructive",
       });
       return;
@@ -148,16 +204,18 @@ const Order = () => {
     } else {
       toast({
         title: "Submission Failed",
-        description: "There was an error sending your application. Please try again.",
+        description: "We couldn't send your request right now. Please try again.",
         variant: "destructive",
       });
     }
   };
 
-  const handlePayment = () => {
-    // Placeholder for 2Checkout integration
-    window.open("https://secure.2checkout.com/checkout/buy", "_blank");
+  const handlePackageSelect = (packageId: string) => {
+    updateFormData("selectedPackage", packageId);
+    setShowCheckout(true);
   };
+
+  const selectedPkg = packages.find(p => p.id === formData.selectedPackage);
 
   if (isSubmitted) {
     return (
@@ -498,10 +556,12 @@ const Order = () => {
                       I will provide access to my domain registrar and hosting account
                     </Label>
                   </div>
-                  <div className="p-4 rounded-xl border border-dashed border-border">
-                    <div className="flex items-center justify-center gap-2 text-muted-foreground">
-                      <Upload className="w-5 h-5" />
-                      <span className="text-sm">Drag & drop brand assets (logo, images) or click to upload</span>
+                  <div className="p-4 rounded-xl bg-secondary/50 border border-border">
+                    <div className="flex items-start gap-3">
+                      <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">
+                        We'll collect your logo, images, and brand assets after submission using your preferred contact method.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -515,7 +575,7 @@ const Order = () => {
                     <Label htmlFor="requiredPages">Required Pages</Label>
                     <Textarea
                       id="requiredPages"
-                      placeholder="e.g., Home, About, Services, Contact, Gallery..."
+                      placeholder="e.g., Home, About, Services, Contact, Gallery... — or let us include all essential pages your professional website needs."
                       value={formData.requiredPages}
                       onChange={(e) => updateFormData("requiredPages", e.target.value)}
                       rows={3}
@@ -525,7 +585,7 @@ const Order = () => {
                     <Label htmlFor="competitorExamples">Competitor Examples</Label>
                     <Textarea
                       id="competitorExamples"
-                      placeholder="Share links to websites you like or competitors in your industry..."
+                      placeholder="Share links to websites you like or competitors in your industry... — or leave this to us and we'll research your competitors."
                       value={formData.competitorExamples}
                       onChange={(e) => updateFormData("competitorExamples", e.target.value)}
                       rows={3}
@@ -535,7 +595,7 @@ const Order = () => {
                     <Label htmlFor="projectGoal">Project Goal</Label>
                     <Textarea
                       id="projectGoal"
-                      placeholder="What do you want your new website to achieve? More leads? Better branding? Online sales?"
+                      placeholder="What do you want your new website to achieve? More leads? Better branding? Online sales? — or select all outcomes you want us to optimize for."
                       value={formData.projectGoal}
                       onChange={(e) => updateFormData("projectGoal", e.target.value)}
                       rows={3}
@@ -561,7 +621,7 @@ const Order = () => {
                     {packages.map((pkg) => (
                       <div
                         key={pkg.id}
-                        onClick={() => updateFormData("selectedPackage", pkg.id)}
+                        onClick={() => handlePackageSelect(pkg.id)}
                         className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${
                           formData.selectedPackage === pkg.id
                             ? "border-primary bg-primary/5"
@@ -576,7 +636,15 @@ const Order = () => {
                             </div>
                           )}
                         </div>
-                        <p className="text-sm text-muted-foreground mb-2">{pkg.description}</p>
+                        <p className="text-sm text-muted-foreground mb-3">{pkg.description}</p>
+                        <ul className="space-y-1.5 mb-4">
+                          {pkg.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <Check className="w-3 h-3 text-primary flex-shrink-0" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
                         <span className="text-primary font-semibold">{pkg.price}</span>
                       </div>
                     ))}
@@ -669,6 +737,14 @@ const Order = () => {
             </motion.div>
           </div>
         </section>
+
+        {/* Checkout Modal */}
+        <CheckoutModal
+          isOpen={showCheckout}
+          onClose={() => setShowCheckout(false)}
+          packageName={selectedPkg?.name || ""}
+          packagePrice={selectedPkg?.price || ""}
+        />
       </Layout>
     </>
   );
