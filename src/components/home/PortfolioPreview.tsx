@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNarrativeScroll } from "@/hooks/useNarrativeScroll";
+import { getPortfolioState, TIMING } from "@/animations/home-narrative";
 
 import aceAfter from "@/assets/portfolio/ace-after.png";
 import mrelectricAfter from "@/assets/portfolio/mrelectric-after.png";
@@ -35,6 +37,13 @@ const projects = [
 ];
 
 export const PortfolioPreview = () => {
+  const { scrollProgress, isReducedMotion } = useNarrativeScroll();
+  
+  // Get narrative state - results have weight, motion slows
+  const portfolioState = scrollProgress.chapter === 'portfolio'
+    ? getPortfolioState(scrollProgress.chapterProgress)
+    : { transitionSpeed: 1, parallaxMultiplier: 1, cardWeight: { shadowOpacity: 0.1, scale: 1 } };
+
   return (
     <section className="section-padding bg-background relative overflow-hidden">
       <div className="container-custom">
@@ -42,8 +51,8 @@ export const PortfolioPreview = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: TIMING.EASE_SETTLE }}
           className="flex flex-col md:flex-row md:items-end md:justify-between mb-16"
         >
           <div>
@@ -62,32 +71,50 @@ export const PortfolioPreview = () => {
           </Link>
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid - Cards feel heavier, motion slows */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.6 * (isReducedMotion ? 1 : portfolioState.transitionSpeed), 
+                delay: index * 0.1,
+                ease: TIMING.EASE_SETTLE,
+              }}
               className="group"
             >
               <Link to="/portfolio" className="block">
-                {/* Image */}
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6">
-                  <img
+                {/* Image - parallax increases */}
+                <motion.div 
+                  className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6"
+                  style={{
+                    boxShadow: `0 20px 40px -20px hsl(var(--foreground) / ${portfolioState.cardWeight.shadowOpacity})`,
+                  }}
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <motion.img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: isReducedMotion ? 1 : 1.05 }}
+                    transition={{ duration: 0.7 * (isReducedMotion ? 1 : portfolioState.transitionSpeed) }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
                   
                   {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                    <motion.div 
+                      className="w-14 h-14 rounded-full bg-primary flex items-center justify-center"
+                      initial={{ scale: 0 }}
+                      whileHover={{ scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
                       <ExternalLink className="w-6 h-6 text-primary-foreground" />
-                    </div>
+                    </motion.div>
                   </div>
 
                   {/* Category badge */}
@@ -96,10 +123,10 @@ export const PortfolioPreview = () => {
                       {project.category}
                     </span>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Content */}
-                <h3 className="text-xl font-serif font-semibold mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-serif font-semibold mb-2 group-hover:text-primary transition-colors duration-500">
                   {project.title}
                 </h3>
                 <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
