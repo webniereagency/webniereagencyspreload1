@@ -6,54 +6,69 @@ import { LayoutDashboard, FileText, MessageSquare, Download, LogOut, User, Setti
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/lib/supabaseClient";
+import { useAuth } from "@/lib/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
 const Dashboard = () => {
-  const { user, isAuthenticated, loading, error, signIn, signUp, signOut, clearError } = useAuth();
+  const { user, loading } = useAuth();
   const [isSignupMode, setIsSignupMode] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
   const [formData, setFormData] = useState({ email: '', password: '', fullName: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Handle form submission
+  // Handle form submission with direct Supabase calls
   const handleAuthSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    clearError();
+    setError(null);
     setIsSubmitting(true);
 
     try {
       if (isSignupMode) {
-        const result = await signUp(formData.email, formData.password, formData.fullName);
-        if (result.success) {
+        const { error } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+        });
+        
+        if (error) {
+          setError(error.message);
+          toast({
+            title: "Sign up failed",
+            description: error.message,
+            variant: "destructive",
+          });
+        } else {
           toast({
             title: "Account created",
             description: "Please check your email to verify your account.",
           });
-        } else if (result.error) {
-          toast({
-            title: "Sign up failed",
-            description: result.error,
-            variant: "destructive",
-          });
         }
       } else {
-        const result = await signIn(formData.email, formData.password);
-        if (result.success) {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
+        
+        if (error) {
+          setError(error.message);
+          toast({
+            title: "Sign in failed",
+            description: error.message,
+            variant: "destructive",
+          });
+        } else {
           toast({
             title: "Welcome back!",
             description: "You have successfully signed in.",
           });
-        } else if (result.error) {
-          toast({
-            title: "Sign in failed",
-            description: result.error,
-            variant: "destructive",
-          });
         }
       }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "An error occurred";
+      setError(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -61,8 +76,8 @@ const Dashboard = () => {
 
   // Handle sign out
   const handleSignOut = async () => {
-    const result = await signOut();
-    if (result.success) {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
       navigate("/");
       toast({
         title: "Signed out",
@@ -74,11 +89,11 @@ const Dashboard = () => {
   // Toggle between sign in and sign up
   const toggleAuthMode = () => {
     setIsSignupMode(!isSignupMode);
-    clearError();
+    setError(null);
   };
 
   // Show loading state
-  if (loading && !isSubmitting) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="animate-pulse text-muted-foreground">Loading...</div>
@@ -87,7 +102,7 @@ const Dashboard = () => {
   }
 
   // Show auth form if not authenticated
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <>
         <Helmet>
@@ -128,7 +143,6 @@ const Dashboard = () => {
                   <Label>Full Name</Label>
                   <Input 
                     placeholder="John Doe" 
-                    required 
                     value={formData.fullName}
                     onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
                   />
