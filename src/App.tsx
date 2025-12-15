@@ -12,6 +12,7 @@ import Order from "./pages/Order";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import Dashboard from "./pages/Dashboard";
+import AuthCallback from "./pages/auth/callback";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import RefundPolicy from "./pages/RefundPolicy";
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/dashboard/*" element={<Dashboard />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
