@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { RefreshCw, Globe, MapPin, Code2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNarrativeScroll } from "@/hooks/useNarrativeScroll";
+import { getServicesState, TIMING } from "@/animations/home-narrative";
 
 const services = [
   {
@@ -39,14 +41,36 @@ const services = [
 ];
 
 export const ServicesSection = () => {
+  const { scrollProgress, isReducedMotion } = useNarrativeScroll();
+  
+  // Get narrative state for this section
+  const servicesState = scrollProgress.chapter === 'services' 
+    ? getServicesState(scrollProgress.chapterProgress)
+    : { backgroundSharpness: 1, gridOpacity: 0.02, cardOpacity: 1, cardTransform: { y: 0, scale: 1 } };
+
   return (
     <section className="section-padding bg-card relative overflow-hidden">
-      {/* Background accent */}
-      <div 
-        className="absolute top-0 right-0 w-1/2 h-full opacity-50"
+      {/* Background accent - sharpens as user scrolls */}
+      <motion.div 
+        className="absolute top-0 right-0 w-1/2 h-full"
         style={{
           background: "radial-gradient(ellipse at 100% 0%, hsl(43 65% 52% / 0.05) 0%, transparent 50%)",
         }}
+        animate={{ 
+          opacity: isReducedMotion ? 0.5 : servicesState.backgroundSharpness * 0.5,
+        }}
+        transition={{ duration: 0.3 }}
+      />
+
+      {/* Invisible alignment grid - becomes slightly visible */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "linear-gradient(hsl(var(--primary)) 1px, transparent 1px)",
+          backgroundSize: "100% 80px",
+        }}
+        animate={{ opacity: servicesState.gridOpacity }}
+        transition={{ duration: 0.5 }}
       />
 
       <div className="container-custom relative z-10">
@@ -54,8 +78,8 @@ export const ServicesSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: TIMING.EASE_SETTLE }}
           className="text-center mb-16"
         >
           <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block">
@@ -72,16 +96,20 @@ export const ServicesSection = () => {
           </p>
         </motion.div>
 
-        {/* Services Grid */}
+        {/* Services Grid - Cards appear settled, not animated in */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative p-8 rounded-2xl bg-background border border-border hover:border-primary/50 transition-all duration-300"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.08,
+                ease: TIMING.EASE_SETTLE,
+              }}
+              className="group relative p-8 rounded-2xl bg-background border border-border hover:border-primary/50 transition-all duration-500"
             >
               {/* Hover glow effect */}
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -90,12 +118,12 @@ export const ServicesSection = () => {
 
               <div className="relative z-10">
                 {/* Icon */}
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-500">
                   <service.icon className="w-7 h-7 text-primary" />
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-serif font-semibold mb-3 group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-serif font-semibold mb-3 group-hover:text-primary transition-colors duration-500">
                   {service.title}
                 </h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -128,10 +156,10 @@ export const ServicesSection = () => {
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center mt-12"
         >
           <Link to="/services">

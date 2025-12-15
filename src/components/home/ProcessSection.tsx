@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { ClipboardList, Wrench, Rocket } from "lucide-react";
+import { useNarrativeScroll } from "@/hooks/useNarrativeScroll";
+import { getProcessState, TIMING } from "@/animations/home-narrative";
 
 const steps = [
   {
@@ -13,7 +15,7 @@ const steps = [
     number: "02",
     icon: Wrench,
     title: "Build",
-    description: "Our AI-accelerated workflow begins. Our specialist team designs, develops, and optimizes your new website using cutting-edge tools.",
+    description: "Our professional workflow begins. Our specialist team designs, develops, and optimizes your new website using cutting-edge tools.",
     duration: "48-72 hours",
   },
   {
@@ -26,6 +28,13 @@ const steps = [
 ];
 
 export const ProcessSection = () => {
+  const { scrollProgress, isReducedMotion } = useNarrativeScroll();
+  
+  // Get narrative state - steps connect, context preserved
+  const processState = scrollProgress.chapter === 'process'
+    ? getProcessState(scrollProgress.chapterProgress)
+    : { connectionLineProgress: 0, stepOpacity: () => 1, contextOpacity: () => 1 };
+
   return (
     <section className="section-padding relative overflow-hidden">
       {/* Background */}
@@ -36,8 +45,8 @@ export const ProcessSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: TIMING.EASE_SETTLE }}
           className="text-center mb-20"
         >
           <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block">
@@ -56,23 +65,45 @@ export const ProcessSection = () => {
 
         {/* Steps */}
         <div className="relative">
-          {/* Connecting line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent -translate-y-1/2" />
+          {/* Connecting line - draws as user scrolls through section */}
+          <motion.div 
+            className="hidden lg:block absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 origin-left"
+            style={{
+              background: "linear-gradient(to right, transparent, hsl(var(--primary) / 0.3), transparent)",
+            }}
+            animate={{ 
+              scaleX: isReducedMotion ? 1 : Math.min(processState.connectionLineProgress, 1),
+              opacity: isReducedMotion ? 1 : 0.5 + processState.connectionLineProgress * 0.5,
+            }}
+            transition={{ duration: 0.1, ease: "linear" }}
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {steps.map((step, index) => (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: index * 0.15,
+                  ease: TIMING.EASE_SETTLE,
+                }}
                 className="relative"
               >
-                <div className="text-center">
+                {/* Context fade - previous steps become context, never disappear */}
+                <motion.div
+                  animate={{ 
+                    opacity: isReducedMotion ? 1 : processState.contextOpacity(index),
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="text-center"
+                >
                   {/* Step number */}
                   <motion.div
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ duration: 0.3 }}
                     className="relative w-24 h-24 mx-auto mb-8"
                   >
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold to-gold-light opacity-20 blur-xl" />
@@ -92,7 +123,7 @@ export const ProcessSection = () => {
                   <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
                     {step.duration}
                   </span>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>

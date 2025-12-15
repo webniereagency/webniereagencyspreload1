@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useNarrativeScroll } from "@/hooks/useNarrativeScroll";
+import { getTrustState, TIMING, MOVEMENT } from "@/animations/home-narrative";
 
 interface Review {
   id: number;
@@ -88,6 +90,12 @@ export const TestimonialsSection = () => {
   const [newReview, setNewReview] = useState({ name: "", content: "", rating: 5 });
   const [hoveredStar, setHoveredStar] = useState(0);
   const { toast } = useToast();
+  const { scrollProgress, isReducedMotion } = useNarrativeScroll();
+
+  // Get narrative state - motion almost stops, trust doesn't need movement
+  const trustState = scrollProgress.chapter === 'trust'
+    ? getTrustState(scrollProgress.chapterProgress)
+    : { motionScale: 1, breathAmplitude: MOVEMENT.BREATH_AMPLITUDE, stillness: false };
 
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,8 +144,8 @@ export const TestimonialsSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: TIMING.EASE_SETTLE }}
           className="text-center mb-12"
         >
           <span className="text-primary text-sm font-semibold tracking-wider uppercase mb-4 block">
@@ -248,15 +256,23 @@ export const TestimonialsSection = () => {
           )}
         </AnimatePresence>
 
-        {/* Testimonials Grid */}
+        {/* Testimonials Grid - Motion almost stops, only micro-interactions */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {reviews.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ 
+                duration: 0.5, 
+                delay: Math.min(index * 0.03, 0.3),
+                ease: TIMING.EASE_SETTLE,
+              }}
+              whileHover={isReducedMotion || trustState.stillness ? {} : { 
+                y: -2 * trustState.motionScale,
+                transition: { duration: 0.3 }
+              }}
               className="relative p-6 rounded-2xl bg-background border border-border"
             >
               {/* Quote icon */}
