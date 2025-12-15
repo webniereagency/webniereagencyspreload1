@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,19 +7,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useNarrativeScroll } from "@/hooks/useNarrativeScroll";
 import { getTrustState, TIMING, MOVEMENT } from "@/animations/home-narrative";
+import { supabase } from "@/lib/supabaseClient";
 
 interface Review {
-  id: number;
+  id: string;
   name: string;
-  role: string;
-  image: string;
+  role?: string;
+  image?: string;
   content: string;
   rating: number;
+  created_at?: string;
 }
 
-const initialTestimonials: Review[] = [
+const fallbackTestimonials: Review[] = [
   {
-    id: 1,
+    id: "1",
     name: "Sarah Mitchell",
     role: "Owner, Coastal Plumbing Co.",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
@@ -27,7 +29,7 @@ const initialTestimonials: Review[] = [
     rating: 5,
   },
   {
-    id: 2,
+    id: "2",
     name: "Michael Chen",
     role: "Director, Green Valley Dental",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
@@ -35,7 +37,7 @@ const initialTestimonials: Review[] = [
     rating: 5,
   },
   {
-    id: 3,
+    id: "3",
     name: "Amanda Rodriguez",
     role: "Founder, Urban Fitness Studio",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
@@ -43,61 +45,55 @@ const initialTestimonials: Review[] = [
     rating: 5,
   },
   {
-    id: 4,
+    id: "4",
     name: "Daniel Hailu",
     role: "CEO, Addis Tech Solutions",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",
     content: "Outstanding work! They understood our vision perfectly and delivered a website that truly represents our brand. The team communication was exceptional throughout.",
     rating: 5,
   },
-  {
-    id: 5,
-    name: "Rebecca Johnson",
-    role: "Owner, Sunset Café",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80",
-    content: "Our new website has completely transformed how customers find us. Online orders have tripled since launch. Highly recommend their services!",
-    rating: 5,
-  },
-  {
-    id: 6,
-    name: "Marcus Thompson",
-    role: "Director, Elite Auto Repair",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
-    content: "The team went above and beyond. Fast delivery, beautiful design, and excellent follow-up support. Our customers constantly compliment the new site.",
-    rating: 5,
-  },
-  {
-    id: 7,
-    name: "Helen Bekele",
-    role: "Founder, Blossom Florist",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80",
-    content: "From concept to launch in under a week! The website perfectly captures our brand's elegance. Customer inquiries have increased significantly.",
-    rating: 5,
-  },
-  {
-    id: 8,
-    name: "James Carter",
-    role: "Managing Partner, Carter Law Firm",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80",
-    content: "Professional, reliable, and delivered exactly what we needed. Our firm's online presence now matches the quality of our legal services. Exceptional work!",
-    rating: 5,
-  },
 ];
 
 export const TestimonialsSection = () => {
-  const [reviews, setReviews] = useState<Review[]>(initialTestimonials);
+  const [reviews, setReviews] = useState<Review[]>(fallbackTestimonials);
   const [showForm, setShowForm] = useState(false);
   const [newReview, setNewReview] = useState({ name: "", content: "", rating: 5 });
   const [hoveredStar, setHoveredStar] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const { scrollProgress, isReducedMotion } = useNarrativeScroll();
+
+  // Fetch reviews from Supabase
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const { data, error } = await supabase
+        .from('reviews')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        const formattedReviews: Review[] = data.map((r: any) => ({
+          id: r.id,
+          name: r.name,
+          role: "Verified Client",
+          image: `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=c9a227&color=fff`,
+          content: r.content,
+          rating: r.rating,
+          created_at: r.created_at,
+        }));
+        setReviews([...formattedReviews, ...fallbackTestimonials]);
+      }
+    };
+
+    fetchReviews();
+  }, []);
 
   // Get narrative state - motion almost stops, trust doesn't need movement
   const trustState = scrollProgress.chapter === 'trust'
     ? getTrustState(scrollProgress.chapterProgress)
     : { motionScale: 1, breathAmplitude: MOVEMENT.BREATH_AMPLITUDE, stillness: false };
 
-  const handleSubmitReview = (e: React.FormEvent) => {
+  const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newReview.name.trim() || !newReview.content.trim()) {
       toast({
@@ -108,8 +104,30 @@ export const TestimonialsSection = () => {
       return;
     }
 
+    setIsSubmitting(true);
+
+    // Insert into Supabase
+    const { error } = await supabase.from('reviews').insert([
+      {
+        name: newReview.name,
+        rating: newReview.rating,
+        content: newReview.content,
+      }
+    ]);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit review. Please try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Add to local state
     const review: Review = {
-      id: Date.now(),
+      id: Date.now().toString(),
       name: newReview.name,
       role: "Verified Client",
       image: `https://ui-avatars.com/api/?name=${encodeURIComponent(newReview.name)}&background=c9a227&color=fff`,
@@ -120,6 +138,7 @@ export const TestimonialsSection = () => {
     setReviews([review, ...reviews]);
     setNewReview({ name: "", content: "", rating: 5 });
     setShowForm(false);
+    setIsSubmitting(false);
     toast({
       title: "Thank you!",
       description: "Your review has been submitted successfully.",
@@ -243,11 +262,11 @@ export const TestimonialsSection = () => {
                 </div>
 
                 <div className="flex gap-3">
-                  <Button type="submit" variant="gold" className="flex-1">
+                  <Button type="submit" variant="gold" className="flex-1" disabled={isSubmitting}>
                     <Send className="w-4 h-4 mr-2" />
-                    Submit Review
+                    {isSubmitting ? "Submitting..." : "Submit Review"}
                   </Button>
-                  <Button type="button" variant="outline" onClick={() => setShowForm(false)}>
+                  <Button type="button" variant="outline" onClick={() => setShowForm(false)} disabled={isSubmitting}>
                     Cancel
                   </Button>
                 </div>
