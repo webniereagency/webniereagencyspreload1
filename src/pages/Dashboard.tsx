@@ -2,7 +2,7 @@ import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
-import { LayoutDashboard, FileText, MessageSquare, Download, LogOut, User, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, MessageSquare, Download, LogOut, User, Settings, Home, Star, Briefcase, Info, FileCheck, Instagram, Facebook, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -313,18 +313,51 @@ const Dashboard = () => {
 
           {/* Overview Tab */}
           {activeTab === "overview" && (
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-xl bg-card border border-border">
-                <p className="text-muted-foreground text-sm">Project Status</p>
-                <p className="text-2xl font-bold text-primary mt-2">In Progress</p>
+            <div className="space-y-8">
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="p-6 rounded-xl bg-card border border-border">
+                  <p className="text-muted-foreground text-sm">Project Status</p>
+                  <p className="text-2xl font-bold text-primary mt-2">In Progress</p>
+                </div>
+                <div className="p-6 rounded-xl bg-card border border-border">
+                  <p className="text-muted-foreground text-sm">Your Requested Launch Date</p>
+                  <p className="text-2xl font-bold mt-2">To be confirmed</p>
+                </div>
+                <div className="p-6 rounded-xl bg-card border border-border">
+                  <p className="text-muted-foreground text-sm">Completion</p>
+                  <p className="text-2xl font-bold text-primary mt-2">65%</p>
+                </div>
               </div>
+
+              {/* Quick Navigation Links */}
               <div className="p-6 rounded-xl bg-card border border-border">
-                <p className="text-muted-foreground text-sm">Estimated Delivery</p>
-                <p className="text-2xl font-bold mt-2">Dec 15, 2024</p>
-              </div>
-              <div className="p-6 rounded-xl bg-card border border-border">
-                <p className="text-muted-foreground text-sm">Completion</p>
-                <p className="text-2xl font-bold text-primary mt-2">65%</p>
+                <h3 className="font-semibold mb-4">Quick Navigation</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <Link to="/" className="flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 hover:text-primary transition-all">
+                    <Home className="w-5 h-5" />
+                    <span className="text-sm font-medium">Back to Home</span>
+                  </Link>
+                  <Link to="/#testimonials" className="flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 hover:text-primary transition-all">
+                    <Star className="w-5 h-5" />
+                    <span className="text-sm font-medium">Leave a Review</span>
+                  </Link>
+                  <Link to="/portfolio" className="flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 hover:text-primary transition-all">
+                    <Briefcase className="w-5 h-5" />
+                    <span className="text-sm font-medium">View Portfolio</span>
+                  </Link>
+                  <Link to="/services" className="flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 hover:text-primary transition-all">
+                    <FileText className="w-5 h-5" />
+                    <span className="text-sm font-medium">View Services</span>
+                  </Link>
+                  <Link to="/about" className="flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 hover:text-primary transition-all">
+                    <Info className="w-5 h-5" />
+                    <span className="text-sm font-medium">About Us</span>
+                  </Link>
+                  <Link to="/terms-of-service" className="flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 hover:text-primary transition-all">
+                    <FileCheck className="w-5 h-5" />
+                    <span className="text-sm font-medium">Terms & Privacy</span>
+                  </Link>
+                </div>
               </div>
             </div>
           )}
@@ -344,23 +377,54 @@ const Dashboard = () => {
             </div>
           )}
 
-          {/* Messages Tab */}
+          {/* Messages Tab - Now Social Contact Hub */}
           {activeTab === "messages" && (
             <div className="p-6 rounded-xl bg-card border border-border">
-              <div className="space-y-4">
-                {[
-                  { from: "Sara", msg: "Hi! Just wanted to update you on the homepage design...", time: "2h ago" },
-                  { from: "You", msg: "Looks great! Can we adjust the header color?", time: "1h ago" }
-                ].map((m, i) => (
-                  <div 
-                    key={i} 
-                    className={`p-4 rounded-lg ${m.from === "You" ? "bg-primary/10 ml-8" : "bg-secondary mr-8"}`}
-                  >
-                    <p className="text-sm">{m.msg}</p>
-                    <p className="text-xs text-muted-foreground mt-2">{m.from} • {m.time}</p>
+              <h3 className="font-semibold mb-2">Contact Us</h3>
+              <p className="text-muted-foreground text-sm mb-6">
+                We don't use in-dashboard messaging yet. For the fastest response, reach us through our social channels:
+              </p>
+              <div className="grid sm:grid-cols-3 gap-4">
+                <a
+                  href="https://www.instagram.com/webniere/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 hover:text-primary transition-all"
+                >
+                  <Instagram className="w-5 h-5" />
+                  <div>
+                    <p className="text-sm font-medium">Instagram</p>
+                    <p className="text-xs text-muted-foreground">@webniere</p>
                   </div>
-                ))}
+                </a>
+                <a
+                  href="https://web.facebook.com/webniere"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 hover:text-primary transition-all"
+                >
+                  <Facebook className="w-5 h-5" />
+                  <div>
+                    <p className="text-sm font-medium">Facebook</p>
+                    <p className="text-xs text-muted-foreground">Webniere</p>
+                  </div>
+                </a>
+                <a
+                  href="https://t.me/Revonyx1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 hover:text-primary transition-all"
+                >
+                  <Send className="w-5 h-5" />
+                  <div>
+                    <p className="text-sm font-medium">Telegram</p>
+                    <p className="text-xs text-muted-foreground">Direct message</p>
+                  </div>
+                </a>
               </div>
+              <p className="text-xs text-muted-foreground mt-6">
+                These are our primary communication channels for project updates and support.
+              </p>
             </div>
           )}
 
