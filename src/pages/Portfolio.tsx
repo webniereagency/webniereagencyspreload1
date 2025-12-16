@@ -74,7 +74,7 @@ const projects = [
     beforeImage: solinaBefore,
     afterImage: solinaAfter,
     tags: ["New Build", "Google Business", "Local Discovery"],
-    website: "https://solinacoffee.lovable.app/",
+    website: "https://solinacoffee.com/",
     github: "https://github.com/webniereagency/solinacoffee",
     deliverables: ["Custom website", "Google Business setup", "Review management", "Local SEO", "Bilingual content"],
   },
