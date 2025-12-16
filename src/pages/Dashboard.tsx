@@ -32,7 +32,7 @@ const Dashboard = () => {
           email: formData.email,
           password: formData.password,
           options: {
-            emailRedirectTo: `${window.location.origin}/webniereagencyspreload1/auth/callback`
+            emailRedirectTo: `${window.location.origin}/auth/callback`
           }
         });
         
@@ -202,7 +202,7 @@ const Dashboard = () => {
                 await supabase.auth.signInWithOAuth({
                   provider: 'google',
                   options: {
-                    redirectTo: `${window.location.origin}/webniereagencyspreload1/auth/callback`
+                    redirectTo: `${window.location.origin}/auth/callback`
                   }
                 })
               }}
