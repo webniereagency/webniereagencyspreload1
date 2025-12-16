@@ -12,30 +12,30 @@ interface Preload72ContainerProps {
 }
 
 type Phase =
-  | "void"           // 0.0s - 0.3s (pure black)
-  | "timeExists"     // 0.3s - 1.5s (clock appears, holds)
-  | "timeMoves"      // 1.5s - 3.5s (countdown begins)
-  | "process"        // 3.5s - 5.8s (process revealed)
-  | "work"           // 5.8s - 7.8s (work happens)
-  | "completion"     // 7.8s - 8.8s (clock hits zero, hold)
-  | "result"         // 8.8s - 9.6s (result shown)
-  | "identity"       // 9.6s - 10.0s (brand reveal)
-  | "handoff";       // 10.0s+ (transition out)
+  | "void"           // 0.0s - 0.15s (pure black)
+  | "timeExists"     // 0.15s - 0.6s (clock appears, holds)
+  | "timeMoves"      // 0.6s - 1.8s (countdown begins)
+  | "process"        // 1.8s - 3.2s (process revealed)
+  | "work"           // 3.2s - 4.8s (work happens)
+  | "completion"     // 4.8s - 5.6s (clock hits zero, hold)
+  | "result"         // 5.6s - 6.4s (result shown)
+  | "identity"       // 6.4s - 7.2s (brand reveal)
+  | "handoff";       // 7.2s+ (transition out)
 
-// STRICT ~13.5-SECOND TIMELINE
+// OPTIMIZED ~8-SECOND TIMELINE (tighter pacing, same narrative)
 const PHASE_TIMINGS: Record<Phase, number> = {
   void: 0,
-  timeExists: 300,
-  timeMoves: 1000,
-  process: 3000,      // ~3s time establishment
-  work: 7000,         // ~4s process reveal
-  completion: 10000,  // ~3s work phase
-  result: 11500,      // ~1.5s completion hold
-  identity: 12700,    // ~1.2s result
-  handoff: 13900,     // ~1.2s identity
+  timeExists: 150,
+  timeMoves: 600,
+  process: 1800,      // ~1.2s time establishment
+  work: 3200,         // ~1.4s process reveal
+  completion: 4800,   // ~1.6s work phase
+  result: 5600,       // ~0.8s completion hold
+  identity: 6400,     // ~0.8s result
+  handoff: 7200,      // ~0.8s identity
 };
 
-const TOTAL_DURATION = 14500;
+const TOTAL_DURATION = 8000;
 
 // Format time as HH:MM:SS
 const formatTime = (hours: number, minutes: number, seconds: number): string => {
