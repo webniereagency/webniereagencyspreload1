@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Helmet } from "react-helmet-async";
@@ -109,6 +110,7 @@ interface FormData {
 }
 
 const Order = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [showCheckout, setShowCheckout] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -365,7 +367,7 @@ const Order = () => {
                 <Button
                   variant="gold"
                   size="lg"
-                  onClick={() => window.location.href = '/dashboard'}
+                  onClick={() => navigate("/dashboard")}
                   className="w-full sm:w-auto"
                 >
                   Sign in / Create account
