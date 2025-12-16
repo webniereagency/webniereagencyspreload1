@@ -62,6 +62,48 @@ export const HeroSection = () => {
         transition={{ duration: TIMING.INTENT_EMERGES.duration, ease: TIMING.EASE_INTENT }}
       />
       
+      {/* Brand Glow Layer - Warm yellow accent that fades on scroll */}
+      <motion.div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(ellipse 120% 80% at 50% 20%, hsl(43 70% 55% / 0.12) 0%, transparent 60%),
+            radial-gradient(ellipse 80% 50% at 30% 70%, hsl(43 65% 52% / 0.06) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 70% 60%, hsl(43 60% 50% / 0.05) 0%, transparent 45%)
+          `,
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ 
+          opacity: animationPhase === 'hidden' ? 0 : 
+            scrollProgress.chapter === 'hero' 
+              ? Math.max(0, 1 - scrollProgress.chapterProgress * 1.5) 
+              : 0,
+        }}
+        transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1] }}
+      />
+      
+      {/* CTA-focused glow - stronger near buttons */}
+      <motion.div 
+        className="absolute pointer-events-none"
+        style={{
+          top: '55%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '600px',
+          height: '300px',
+          background: 'radial-gradient(ellipse at center, hsl(43 65% 52% / 0.08) 0%, transparent 70%)',
+          filter: 'blur(40px)',
+        }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ 
+          opacity: animationPhase === 'present' && scrollProgress.chapter === 'hero' 
+            ? Math.max(0, 0.8 - scrollProgress.chapterProgress * 1.2) 
+            : animationPhase === 'aligned' ? 0.4 : 0,
+          scale: animationPhase === 'present' ? 1 : 0.9,
+        }}
+        transition={{ duration: 1.5, ease: [0.37, 0, 0.63, 1] }}
+      />
+      
       {/* Ambient glow - emerges slowly */}
       <motion.div 
         className="absolute inset-0"
@@ -70,7 +112,10 @@ export const HeroSection = () => {
         }}
         initial={{ opacity: 0 }}
         animate={{ 
-          opacity: animationPhase === 'hidden' ? 0 : animationPhase === 'intent' ? 0.15 : 0.3,
+          opacity: animationPhase === 'hidden' ? 0 : 
+            scrollProgress.chapter === 'hero' 
+              ? (animationPhase === 'intent' ? 0.15 : 0.3) * Math.max(0, 1 - scrollProgress.chapterProgress)
+              : 0,
         }}
         transition={{ duration: TIMING.ALIGNMENT.duration, ease: TIMING.EASE_SETTLE }}
       />
