@@ -19,9 +19,9 @@ const PrivacyPolicy = () => (
             <h2 className="text-xl font-semibold text-foreground mt-8">4. Third-Party Services</h2>
             <p>We may share data with trusted third-party services including payment processors (2Checkout/Verifone), hosting providers, and analytics tools. These partners are bound by confidentiality agreements.</p>
             <h2 className="text-xl font-semibold text-foreground mt-8">5. Your Rights</h2>
-            <p>You have the right to: access your personal data, request corrections, request deletion, opt-out of marketing, and data portability. Contact us at privacy@webniereagency.com for requests.</p>
+            <p>You have the right to: access your personal data, request corrections, request deletion, opt-out of marketing, and data portability. Contact us at support@webniereagency.biz for requests.</p>
             <h2 className="text-xl font-semibold text-foreground mt-8">6. Contact Us</h2>
-            <p>For privacy-related inquiries: privacy@webniereagency.com</p>
+            <p>For privacy-related inquiries: support@webniereagency.biz</p>
           </div>
         </div>
       </section>

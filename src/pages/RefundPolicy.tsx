@@ -15,7 +15,7 @@ const RefundPolicy = () => (
             <h2 className="text-xl font-semibold text-foreground mt-8">2. Refund Eligibility</h2>
             <p><strong>Full Refund (100%):</strong> Available within 24 hours of payment if no work has begun.<br/><strong>Partial Refund (50%):</strong> Available before design mockups are approved.<br/><strong>No Refund:</strong> Once development begins after design approval.</p>
             <h2 className="text-xl font-semibold text-foreground mt-8">3. How to Request a Refund</h2>
-            <p>Email billing@webniereagency.com with your order number and reason for the refund request. We respond within 24 business hours.</p>
+            <p>Email support@webniereagency.biz with your order number and reason for the refund request. We respond within 24 business hours.</p>
             <h2 className="text-xl font-semibold text-foreground mt-8">4. Refund Processing</h2>
             <p>Approved refunds are processed within 5-10 business days to the original payment method. Processing times may vary by financial institution.</p>
             <h2 className="text-xl font-semibold text-foreground mt-8">5. Monthly Services</h2>
@@ -23,7 +23,7 @@ const RefundPolicy = () => (
             <h2 className="text-xl font-semibold text-foreground mt-8">6. Exceptions</h2>
             <p>Custom development projects with specific deliverables may have different refund terms as outlined in the project agreement.</p>
             <h2 className="text-xl font-semibold text-foreground mt-8">7. Contact</h2>
-            <p>For refund inquiries: billing@webniereagency.com</p>
+            <p>For refund inquiries: support@webniereagency.biz</p>
           </div>
         </div>
       </section>

@@ -88,11 +88,11 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Email Us</h3>
-                      <a href="mailto:support@webniereagency.com" className="text-muted-foreground hover:text-primary transition-colors block">
-                        support@webniereagency.com
+                      <a href="mailto:support@webniereagency.biz" className="text-muted-foreground hover:text-primary transition-colors block">
+                        support@webniereagency.biz
                       </a>
-                      <a href="mailto:billing@webniereagency.com" className="text-muted-foreground hover:text-primary transition-colors block">
-                        billing@webniereagency.com
+                      <a href="mailto:support@webniereagency.biz" className="text-muted-foreground hover:text-primary transition-colors block">
+                        support@webniereagency.biz
                       </a>
                     </div>
                   </div>

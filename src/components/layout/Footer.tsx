@@ -109,8 +109,8 @@ export const Footer = () => {
                 <Mail size={18} className="text-primary mt-0.5" />
                 <div className="text-sm">
                   <p className="text-muted-foreground">General Inquiries</p>
-                  <a href="mailto:support@webniereagency.com" className="text-foreground hover:text-primary transition-colors">
-                    support@webniereagency.com
+                  <a href="mailto:support@webniereagency.biz" className="text-foreground hover:text-primary transition-colors">
+                    support@webniereagency.biz
                   </a>
                 </div>
               </li>
@@ -118,8 +118,8 @@ export const Footer = () => {
                 <Mail size={18} className="text-primary mt-0.5" />
                 <div className="text-sm">
                   <p className="text-muted-foreground">Billing</p>
-                  <a href="mailto:billing@webniereagency.com" className="text-foreground hover:text-primary transition-colors">
-                    billing@webniereagency.com
+                  <a href="mailto:support@webniereagency.biz" className="text-foreground hover:text-primary transition-colors">
+                    support@webniereagency.biz
                   </a>
                 </div>
               </li>

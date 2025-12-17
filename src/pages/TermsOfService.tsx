@@ -25,7 +25,7 @@ const TermsOfService = () => (
             <h2 className="text-xl font-semibold text-foreground mt-8">7. Limitation of Liability</h2>
             <p>WebniereAgency's liability is limited to the amount paid for services. We are not liable for indirect, consequential, or incidental damages.</p>
             <h2 className="text-xl font-semibold text-foreground mt-8">8. Contact</h2>
-            <p>For questions about these terms: legal@webniereagency.com</p>
+            <p>For questions about these terms: support@webniereagency.biz</p>
           </div>
         </div>
       </section>
